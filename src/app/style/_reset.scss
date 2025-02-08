@@ -1,0 +1,48 @@
+*, *:before, *:after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Для Firefox */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+body {
+
+  font-size: var(--main-font-size);
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.block-card {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 14px;
+}
+
+.scroll-block {
+  height: 50%;
+  flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 18px 0;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+  backdrop-filter: none;
+}

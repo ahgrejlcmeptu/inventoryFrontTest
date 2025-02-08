@@ -1,47 +1,64 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import TheInformation from "@/widgets/information/TheInformation.vue";
+import TheTable from "@/widgets/table/TheTable.vue";
+import TheSearch from "@/widgets/search/TheSearch.vue";
+import AppToggle from "@/spared/AppToggle.vue";
+import {useItems} from "@/app/stores/items.ts";
+import {useConfig} from "@/app/stores/config.ts";
+import {onMounted, ref} from "vue";
+
+const config = useConfig()
+onMounted(() => {
+    useItems().initialIndex()
+})
+
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div :class="['inventory', {'theme_light': config.themeLight}]">
+        <div class="inventory__theme">
+            <AppToggle :active="config.themeLight" @action="config.updateTheme"/>
+        </div>
+        <div class="inventory__top">
+            <TheInformation/>
+            <TheTable/>
+        </div>
+        <div class="inventory__bottom">
+            <TheSearch/>
+        </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<style scoped lang="scss">
+.inventory {
+  color: var(--light-text);
+  padding: 32px;
+  background: var(--main-background);
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
+  &__top {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    width: 100%;
+    height: 50%;
+    flex-grow: 1;
+    gap: 24px;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  &__bottom {
+    width: 100%;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  &__theme {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 </style>
