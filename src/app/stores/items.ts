@@ -22,8 +22,8 @@ export const useItems = defineStore('items', () => {
         }
     })
 
-    const cellItem = computed(() => {
-        const sortList = {};
+    const cellItem: any = computed(() => {
+        const sortList: any = {};
         for (const key in list) {
             const index = list[key].index
             if (index) sortList[index] = key;

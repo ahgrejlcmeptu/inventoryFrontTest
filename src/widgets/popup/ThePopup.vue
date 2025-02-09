@@ -10,17 +10,18 @@ import {computed, ref, watch} from "vue";
 interface Item {
     img: string
     amount: number
+    description?: any
 }
 
 const items = useItems()
-const item = computed<Item>(() => items.list[items.open])
+const item = computed<Item | null>(() => items.open ? items.list[items.open] : null)
 const isRemove = ref<boolean>(false)
 const amount = ref<null | number>(null)
 const onClose = (): void => {
     items.open = null
 }
 const onRemove = (): void => {
-    items.itemRemove(amount.value ? amount.value : item.value.amount)
+    items.itemRemove(amount.value ? amount.value : item.value?.amount || 0)
 }
 
 watch(
@@ -44,12 +45,12 @@ watch(
         <div v-if="items.open" class="popup block-card">
             <AppClose @action="onClose"/>
             <div class="popup__image">
-                <img :src="item.img" alt="">
+                <img :src="item?.img" alt="">
             </div>
             <app-scroll>
                 <AppText width="80%" :title="true"/>
                 <AppText
-                    v-for="p in item.description"
+                    v-for="p in item?.description"
                     :width="p"/>
             </app-scroll>
             <div class="popup__footer">

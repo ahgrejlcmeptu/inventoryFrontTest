@@ -2,13 +2,14 @@
 import {computed} from "vue";
 import {checkUndefined} from "@/app/utils/checkUndefined.ts";
 
-type Color = 'main' | 'white'
+type Color = 'main' | 'white' | undefined
+type Type = "button" | "submit" | "reset" | undefined
 
 type Props = {
-    type?: string;
-    full?: string;
+    type?: Type;
+    full?: boolean | undefined;
     size?: string;
-    color?: Color | undefined;
+    color?: Color
     disabled?: boolean | undefined
 }
 

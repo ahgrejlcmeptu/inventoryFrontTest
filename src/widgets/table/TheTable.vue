@@ -12,7 +12,7 @@ const onDrop = (idx: number): void => items.updateList(dragId.value, idx)
 const drag = (id: number | string): void => {
     dragId.value = id
 }
-const onClick = (event) => {
+const onClick = (event: any): void => {
     const el = event.target
     if (!el.closest('.card')) items.open = null
 }
