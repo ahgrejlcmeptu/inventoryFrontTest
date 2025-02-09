@@ -19,8 +19,8 @@ const onClick = (event: any): void => {
 </script>
 
 <template>
-    <div class="table" @click="onClick">
-        <div class="table__content">
+    <div class="table">
+        <div class="table__content" @click="onClick">
             <div
                     class="table-cell"
                     v-for="item in useConfig().numberCells"
