@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import {useItems} from "@/app/stores/items.ts";
 import {computed} from "vue";
+type Props = {
+    id: number | string
+}
+interface Item {
+    img: string;
+    amount: number;
+}
 
-const props = defineProps(['id'])
+const props = defineProps<Props>()
 const items = useItems()
-const item = computed(() => items.list[props.id])
-
+const item = computed<Item>(() => items.list[props.id])
 
 </script>
 
@@ -48,10 +54,5 @@ const item = computed(() => items.list[props.id])
     min-width: 18px;
     text-align: center;
   }
-
-    &.dragging {
-        //transform: scale(1.05); /* Немного увеличиваем элемент */
-        //cursor: grabbing;
-    }
 }
 </style>

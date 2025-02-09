@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import TheInformation from "@/widgets/information/TheInformation.vue";
 import TheTable from "@/widgets/table/TheTable.vue";
-import TheSearch from "@/widgets/search/TheSearch.vue";
+import TheFooter from "@/widgets/footer/TheFooter.vue";
 import AppToggle from "@/spared/AppToggle.vue";
-import {useItems} from "@/app/stores/items.ts";
 import {useConfig} from "@/app/stores/config.ts";
-import {onMounted, ref} from "vue";
 
 const config = useConfig()
-onMounted(() => {
-    useItems().initialIndex()
-})
-
 
 </script>
 
@@ -24,9 +18,7 @@ onMounted(() => {
             <TheInformation/>
             <TheTable/>
         </div>
-        <div class="inventory__bottom">
-            <TheSearch/>
-        </div>
+        <TheFooter/>
     </div>
 </template>
 
@@ -46,13 +38,9 @@ onMounted(() => {
   &__top {
     display: flex;
     width: 100%;
-    height: 50%;
+    height: 500px;
     flex-grow: 1;
     gap: 24px;
-  }
-
-  &__bottom {
-    width: 100%;
   }
 
   &__theme {

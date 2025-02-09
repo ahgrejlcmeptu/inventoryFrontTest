@@ -1,14 +1,17 @@
 <script setup lang="ts">
-const props = defineProps<{
+type Props = {
     width?: string;
-    title?: boolean
-}>();
+    title?: boolean,
+    h1?: true
+}
+withDefaults(defineProps<Props>(), {
+    width: '100%'
+})
 
-const defaultWidth = props.width ?? '100%';
 </script>
 
 <template>
-    <div :class="['app-text', {'app-text_title': title}]" :style="{'width': defaultWidth}">
+    <div :class="['app-text', {'app-text_title': title, 'app-text_h1': h1,}]" :style="{'width': width}">
         <slot/>
     </div>
 </template>
@@ -21,9 +24,15 @@ const defaultWidth = props.width ?? '100%';
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+  max-width: 100%;
 
   &_title {
     padding: 13px;
+    margin-bottom: 24px;
+  }
+
+  &_h1 {
+    padding: 18px 13px;
     margin-bottom: 24px;
   }
 

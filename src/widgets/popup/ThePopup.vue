@@ -3,23 +3,38 @@ import AppButton from "@/spared/AppButton.vue";
 import AppClose from "@/spared/AppClose.vue";
 import AppText from "@/spared/AppText.vue";
 import AppInput from "@/spared/AppInput.vue";
+import AppScroll from "@/spared/AppScroll.vue";
 import {useItems} from "@/app/stores/items.ts";
 import {computed, ref, watch} from "vue";
 
+interface Item {
+    img: string
+    amount: number
+}
+
 const items = useItems()
-const item = computed(() => items.list[items.open])
-const isRemove = ref(false)
-const amount = ref('')
-const onClose = () => items.open = null
-const onRemove = () => {
-    items.itemRemove(amount.value)
+const item = computed<Item>(() => items.list[items.open])
+const isRemove = ref<boolean>(false)
+const amount = ref<null | number>(null)
+const onClose = (): void => {
+    items.open = null
+}
+const onRemove = (): void => {
+    items.itemRemove(amount.value ? amount.value : item.value.amount)
 }
 
 watch(
-    ()=> items.open,
+    () => item.value?.amount,
+    () => {
+        amount.value = null
+    }
+)
+
+watch(
+    () => items.open,
     () => {
         isRemove.value = false
-        amount.value = ''
+        amount.value = null
     }
 )
 </script>
@@ -31,27 +46,19 @@ watch(
             <div class="popup__image">
                 <img :src="item.img" alt="">
             </div>
-            <div class="scroll-block">
+            <app-scroll>
                 <AppText width="80%" :title="true"/>
-                <AppText width="80%"/>
-                <AppText width="90%"/>
-                <AppText width="80%"/>
-                <AppText width="70%"/>
-                <AppText width="60%"/>
-                <AppText width="50%"/>
-                <AppText width="90%"/>
-                <AppText width="80%"/>
-                <AppText width="70%"/>
-                <AppText width="60%"/>
-                <AppText width="50%"/>
-            </div>
+                <AppText
+                    v-for="p in item.description"
+                    :width="p"/>
+            </app-scroll>
             <div class="popup__footer">
                 <app-button v-if="!isRemove" full @action="isRemove = true">Удалить предмет</app-button>
                 <template v-else>
                     <AppInput placeholder="Введите количество" type="number" name="amount"
                               v-model.trim.number="amount"/>
                     <app-button @action="isRemove = false" color="white" size="small">Отмена</app-button>
-                    <app-button @action="onRemove" size="small" :disabled="!amount">Подтвердить</app-button>
+                    <app-button @action="onRemove" size="small">Подтвердить</app-button>
                 </template>
             </div>
         </div>

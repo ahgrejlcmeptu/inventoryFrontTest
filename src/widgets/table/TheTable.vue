@@ -7,38 +7,35 @@ import {useItems} from "@/app/stores/items.ts";
 import {ref} from "vue";
 
 const items = useItems()
-const dragId = ref(null)
-const isDragging = ref(false)
-
-const onDrop = (idx) => {
-    isDragging.value = false
-    items.updateList(dragId.value, idx)
-}
-const drag = (id) => {
-    isDragging.value = true
+const dragId = ref<number | string | null>(null)
+const onDrop = (idx: number): void => items.updateList(dragId.value, idx)
+const drag = (id: number | string): void => {
     dragId.value = id
 }
-
+const onClick = (event) => {
+    const el = event.target
+    if (!el.closest('.card')) items.open = null
+}
 </script>
 
 <template>
-<!--    -->
-    <div class="table">
-        <div
-                class="table-cell"
-                v-for="item in useConfig().numberCells"
-                :key="item"
-                @drop="onDrop(item)"
-                @dragover.prevent
-        >
-            <AppCard
-                    v-if="items.cellItem[item]"
-                    :id="items.cellItem[item]"
-                    :class="{ 'dragging': isDragging }"
-                    draggable="true"
-                    @dragstart="drag(items.cellItem[item])"
-                    @click="items.open = items.cellItem[item]"
-            />
+    <div class="table" @click="onClick">
+        <div class="table__content">
+            <div
+                    class="table-cell"
+                    v-for="item in useConfig().numberCells"
+                    :key="item"
+                    @drop="onDrop(item)"
+                    @dragover.prevent
+            >
+                <AppCard
+                        v-if="items.cellItem[item]"
+                        :id="items.cellItem[item]"
+                        draggable="true"
+                        @dragstart="drag(items.cellItem[item])"
+                        @click="items.open = items.cellItem[item]"
+                />
+            </div>
         </div>
         <ThePopup/>
     </div>
@@ -50,11 +47,16 @@ const drag = (id) => {
   flex-grow: 1;
   border-radius: var(--main-radius);
   background: var(--add-background);
-  display: grid;
-  grid-template-columns: repeat(var(--max-column-cell), 1fr);
   border: 1px solid var(--border-color);
   overflow: hidden;
   position: relative;
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(var(--max-column-cell), 1fr);
+    margin: -1px;
+    height: 100%;
+  }
 
   &-cell {
     position: relative;

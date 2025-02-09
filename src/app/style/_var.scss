@@ -15,17 +15,18 @@
   --amount-radius: 6px;
   --max-column-cell: 5;
   --main-font-size: 14px;
+
   --text-white: #fff;
+  --text-black: #2D2D2D
 }
 
 .theme_light {
-  --main-white: #1D1D1D;
-  --main-background: #fff;
-
-  --add-background: #d0cccc;
-  --add-background_rgb: rgba(208,204,204, .5);
-  --border-color: #4D4D4D;
-  //--main-gradient: linear-gradient(90deg, #3C3C3C 0%, #444444 51.04%, #333333 100%);
-  //--dark-text: #2D2D2D;
-  --light-text: rgba(0,0,0, .9);
+  --main-white: #000;
+  --main-background: #e2e2e2;
+  --add-background: #d9d9d9;
+  --add-background_rgb: rgba(217,217,217, .5);
+  --border-color: #b2b2b2;
+  --main-gradient: linear-gradient(90deg, #c3c3c3 0%, #bbbbbb 51.04%, #cccccc 100%);
+  --dark-text: #d2d2d2;
+  --light-text: rgba(0,0,0, .4);
 }

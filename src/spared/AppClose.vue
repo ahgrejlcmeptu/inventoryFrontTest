@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+defineEmits(['action'])
 </script>
 
 <template>

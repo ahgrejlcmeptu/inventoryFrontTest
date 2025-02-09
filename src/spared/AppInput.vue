@@ -5,7 +5,7 @@ type Props = {
     type?: string
     name?: string
     placeholder?: string
-    modelValue: string | number
+    modelValue: string | number | null
     max?: number
 }
 const props = withDefaults(defineProps<Props>(), {
@@ -17,7 +17,7 @@ const model = computed({
     get() {
         return props.modelValue;
     },
-    set(value) {
+    set(value: string | number) {
         emits("update:modelValue", value);
     }
 })
