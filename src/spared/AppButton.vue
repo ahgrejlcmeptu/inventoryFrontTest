@@ -30,7 +30,7 @@ const size = computed<string>(() => props.size ? 'btn_' + props.size : '')
 <template>
     <button
             :type="type"
-            :class="['btn', color, size, {'btn_full': checkUndefined(full)}]"
+            :class="['btn', color, size, {'btn_full': full}]"
             @click="onClick"
             :disabled="disabled"
     >

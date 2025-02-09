@@ -55,7 +55,7 @@ const onClick = (event: any): void => {
     display: grid;
     grid-template-columns: repeat(var(--max-column-cell), 1fr);
     margin: -1px;
-    height: 100%;
+    height: calc(100% + 2px);
   }
 
   &-cell {
